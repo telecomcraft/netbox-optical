@@ -32,6 +32,7 @@ class CreateCustomFieldsScript(Script):
             description="The overall optical loss on the fiber across the cable's length"
         )
         attenuation_coeff.content_types.set([cable_id])
+        attenuation_coeff.save()
         self.log_info("attenuation_coeff custom field created")
 
         attenuator_loss = CustomField(
@@ -42,6 +43,7 @@ class CreateCustomFieldsScript(Script):
             description="The intentionally-added loss on the optical link from a fixed or variable attenuator"
         )
         attenuator_loss.content_types.set([frontport_id, rearport_id])
+        attenuator_loss.save()
         self.log_info("attenuation_coeff custom field created")
 
         insertion_loss = CustomField(
@@ -52,6 +54,7 @@ class CreateCustomFieldsScript(Script):
             description="The optical loss between two points in an optical link when passing through a termination in a device"
         )
         insertion_loss.content_types.set([frontport_id, rearport_id])
+        insertion_loss.save()
         self.log_info("insertion_loss custom field created")
 
         return_loss = CustomField(
@@ -62,6 +65,7 @@ class CreateCustomFieldsScript(Script):
             description="The optical loss from reflection at a termination point in a device"
         )
         return_loss.content_types.set([frontport_id, rearport_id])
+        return_loss.save()
         self.log_info("return_loss custom field created")
 
         max_tx_power = CustomField(
@@ -72,6 +76,7 @@ class CreateCustomFieldsScript(Script):
             description="The maximum transmission power of a transceiver"
         )
         max_tx_power.content_types.set([interface_id])
+        max_tx_power.save()
         self.log_info("max_tx_power custom field created")
 
         min_tx_power = CustomField(
@@ -82,6 +87,7 @@ class CreateCustomFieldsScript(Script):
             description="The minimum transmission power of a transceiver"
         )
         min_tx_power.content_types.set([interface_id])
+        min_tx_power.save()
         self.log_info("min_tx_power custom field created")
 
         rx_overload = CustomField(
@@ -92,6 +98,7 @@ class CreateCustomFieldsScript(Script):
             description="The overload power threshold of a transceiver"
         )
         rx_overload.content_types.set([interface_id])
+        rx_overload.save()
         self.log_info("rx_overload custom field created")
 
         rx_sensitivity = CustomField(
@@ -102,6 +109,7 @@ class CreateCustomFieldsScript(Script):
             description="The sensitivity power threshold of a transceiver"
         )
         rx_sensitivity.content_types.set([interface_id])
+        rx_sensitivity.save()
         self.log_info("rx_sensitivity custom field created")
 
         tx_wavelength = CustomField(
@@ -113,6 +121,7 @@ class CreateCustomFieldsScript(Script):
             description="The specific TX wavelength of the transceiver"
         )
         tx_wavelength.content_types.set([interface_id])
+        tx_wavelength.save()
         self.log_info("tx_wavelength custom field created")
 
         rx_wavelength = CustomField(
@@ -123,6 +132,7 @@ class CreateCustomFieldsScript(Script):
             description="The specific RX wavelength of the transceiver"
         )
         rx_wavelength.content_types.set([interface_id])
+        rx_wavelength.save()
         self.log_info("rx_wavelength custom field created")
 
         # Return the output to the script page
