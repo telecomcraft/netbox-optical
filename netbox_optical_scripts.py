@@ -1,8 +1,19 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 
 from extras.choices import CustomFieldTypeChoices
 from extras.models.customfields import CustomField
 from extras.scripts import Script, StringVar, ObjectVar
+
+
+name = 'Netbox Optical'
+
+
+def get_optical_fields():
+    fields = CustomField.objects.filter(
+        Q(group_name='Optical Loss') | Q(group_name='Optical Power')
+    )
+    return fields
 
 
 class CreateCustomFieldsScript(Script):
@@ -40,7 +51,7 @@ class CreateCustomFieldsScript(Script):
             label='Attenuator Loss',
             group_name='Optical Loss',
             type=CustomFieldTypeChoices.TYPE_INTEGER,  # This will change in Netbox 3.4 to Decimal
-            description="The intentionally-added loss on the optical link from a fixed or variable attenuator"
+            description="The intentionally-added optical loss on this port from a fixed or variable attenuator"
         )
         attenuator_loss.content_types.set([frontport_id, rearport_id])
         attenuator_loss.save()
@@ -51,7 +62,7 @@ class CreateCustomFieldsScript(Script):
             label='Insertion Loss',
             group_name='Optical Loss',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The optical loss between two points in an optical link when passing through a termination in a device"
+            description="The optical loss passing through the port"
         )
         insertion_loss.content_types.set([frontport_id, rearport_id])
         insertion_loss.save()
@@ -62,7 +73,7 @@ class CreateCustomFieldsScript(Script):
             label='Return Loss',
             group_name='Optical Loss',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The optical loss from reflection at a termination point in a device"
+            description="The optical loss from reflection at the port"
         )
         return_loss.content_types.set([frontport_id, rearport_id])
         return_loss.save()
@@ -73,7 +84,7 @@ class CreateCustomFieldsScript(Script):
             label='Maximum TX Power',
             group_name='Optical Power',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The maximum transmission power of a transceiver"
+            description="The maximum transmission power of the transceiver"
         )
         max_tx_power.content_types.set([interface_id])
         max_tx_power.save()
@@ -84,7 +95,7 @@ class CreateCustomFieldsScript(Script):
             label='Minimum TX Power',
             group_name='Optical Power',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The minimum transmission power of a transceiver"
+            description="The minimum transmission power of the transceiver"
         )
         min_tx_power.content_types.set([interface_id])
         min_tx_power.save()
@@ -95,7 +106,7 @@ class CreateCustomFieldsScript(Script):
             label='RX Overload',
             group_name='Optical Power',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The overload power threshold of a transceiver"
+            description="The overload power threshold of the transceiver"
         )
         rx_overload.content_types.set([interface_id])
         rx_overload.save()
@@ -106,7 +117,7 @@ class CreateCustomFieldsScript(Script):
             label='RX Sensitivity',
             group_name='Optical Power',
             type=CustomFieldTypeChoices.TYPE_TEXT,  # This will change in Netbox 3.4 to Decimal
-            description="The sensitivity power threshold of a transceiver"
+            description="The sensitivity power threshold of the transceiver"
         )
         rx_sensitivity.content_types.set([interface_id])
         rx_sensitivity.save()
@@ -136,7 +147,7 @@ class CreateCustomFieldsScript(Script):
         self.log_info("rx_wavelength custom field created")
 
         # Return the output to the script page
-        self.log_success('Generation of custom fields complete.')
+        self.log_success('Generation of custom fields complete')
 
 # TODO: Change script order
 
@@ -149,7 +160,12 @@ class UpdateCustomFieldsScript(Script):
         commit_default = False
 
     def run(self, data, commit):
-        self.log_info('All optical fields updated.')
+        fields = get_optical_fields()
+
+        for field in fields:
+            self.log_info(f"{field.name} updated")
+
+        self.log_success('All optical fields updated')
 
 
 class RemoveCustomFieldsScript(Script):
@@ -160,4 +176,17 @@ class RemoveCustomFieldsScript(Script):
         commit_default = False
 
     def run(self, data, commit):
-        self.log_info('All optical fields removed.')
+        fields = get_optical_fields()
+
+        for field in fields:
+            CustomField.objects.filter(id=field.id).delete()
+            self.log_info(f"{field.name} removed")
+
+        self.log_success('All optical fields removed')
+
+
+script_order = (
+    CreateCustomFieldsScript,
+    UpdateCustomFieldsScript,
+    RemoveCustomFieldsScript
+)
