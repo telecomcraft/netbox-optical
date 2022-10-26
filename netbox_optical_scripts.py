@@ -138,6 +138,19 @@ class CreateCustomFieldsScript(Script):
         # Return the output to the script page
         self.log_success('Generation of custom fields complete.')
 
+# TODO: Change script order
+
+
+class UpdateCustomFieldsScript(Script):
+
+    class Meta:
+        name = "Update Optical Networking Custom Fields"
+        description = "Updates the optical networking custom fields"
+        commit_default = False
+
+    def run(self, data, commit):
+        self.log_info('All optical fields updated.')
+
 
 class RemoveCustomFieldsScript(Script):
 
