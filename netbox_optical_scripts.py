@@ -44,7 +44,7 @@ class CreateCustomFieldsScript(Script):
         )
         attenuator_loss.content_types.set([frontport_id, rearport_id])
         attenuator_loss.save()
-        self.log_info("attenuation_coeff custom field created")
+        self.log_info("attenuator_loss custom field created")
 
         insertion_loss = CustomField.objects.create(
             name='insertion_loss',
@@ -136,4 +136,15 @@ class CreateCustomFieldsScript(Script):
         self.log_info("rx_wavelength custom field created")
 
         # Return the output to the script page
-        return 'Generation of custom fields complete.'
+        self.log_success('Generation of custom fields complete.')
+
+
+class RemoveCustomFieldsScript(Script):
+
+    class Meta:
+        name = "Remove Optical Networking Custom Fields"
+        description = "Removes the optical networking custom fields"
+        commit_default = False
+
+    def run(self, data, commit):
+        self.log_info('All optical fields removed.')
