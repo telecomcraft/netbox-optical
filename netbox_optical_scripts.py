@@ -24,7 +24,7 @@ class CreateCustomFieldsScript(Script):
 
         # TODO: Add exception check to ensure these fields don't already exist
 
-        attenuation_coeff = CustomField(
+        attenuation_coeff = CustomField.objects.create(
             name='attenuation_coeff',
             label='Attenuation Coefficient',
             group_name='Optical Loss',
@@ -35,7 +35,7 @@ class CreateCustomFieldsScript(Script):
         attenuation_coeff.save()
         self.log_info("attenuation_coeff custom field created")
 
-        attenuator_loss = CustomField(
+        attenuator_loss = CustomField.objects.create(
             name='attenuator_loss',
             label='Attenuator Loss',
             group_name='Optical Loss',
@@ -46,7 +46,7 @@ class CreateCustomFieldsScript(Script):
         attenuator_loss.save()
         self.log_info("attenuation_coeff custom field created")
 
-        insertion_loss = CustomField(
+        insertion_loss = CustomField.objects.create(
             name='insertion_loss',
             label='Insertion Loss',
             group_name='Optical Loss',
@@ -57,7 +57,7 @@ class CreateCustomFieldsScript(Script):
         insertion_loss.save()
         self.log_info("insertion_loss custom field created")
 
-        return_loss = CustomField(
+        return_loss = CustomField.objects.create(
             name='return_loss',
             label='Return Loss',
             group_name='Optical Loss',
@@ -68,7 +68,7 @@ class CreateCustomFieldsScript(Script):
         return_loss.save()
         self.log_info("return_loss custom field created")
 
-        max_tx_power = CustomField(
+        max_tx_power = CustomField.objects.create(
             name='max_tx_power',
             label='Maximum TX Power',
             group_name='Optical Power',
@@ -79,7 +79,7 @@ class CreateCustomFieldsScript(Script):
         max_tx_power.save()
         self.log_info("max_tx_power custom field created")
 
-        min_tx_power = CustomField(
+        min_tx_power = CustomField.objects.create(
             name='min_tx_power',
             label='Minimum TX Power',
             group_name='Optical Power',
@@ -90,7 +90,7 @@ class CreateCustomFieldsScript(Script):
         min_tx_power.save()
         self.log_info("min_tx_power custom field created")
 
-        rx_overload = CustomField(
+        rx_overload = CustomField.objects.create(
             name='rx_overload',
             label='RX Overload',
             group_name='Optical Power',
@@ -101,7 +101,7 @@ class CreateCustomFieldsScript(Script):
         rx_overload.save()
         self.log_info("rx_overload custom field created")
 
-        rx_sensitivity = CustomField(
+        rx_sensitivity = CustomField.objects.create(
             name='rx_sensitivity',
             label='RX Sensitivity',
             group_name='Optical Power',
@@ -112,7 +112,7 @@ class CreateCustomFieldsScript(Script):
         rx_sensitivity.save()
         self.log_info("rx_sensitivity custom field created")
 
-        tx_wavelength = CustomField(
+        tx_wavelength = CustomField.objects.create(
             name='tx_wavelength',
             label='TX Wavelength',
             group_name='Optical Power',
@@ -124,7 +124,7 @@ class CreateCustomFieldsScript(Script):
         tx_wavelength.save()
         self.log_info("tx_wavelength custom field created")
 
-        rx_wavelength = CustomField(
+        rx_wavelength = CustomField.objects.create(
             name='rx_wavelength',
             label='RX Wavelength',
             group_name='Optical Power',
