@@ -31,3 +31,12 @@ nav:
   - Features: 'features.md'
   - Installation: 'installation.md'
   - Configuration: 'configuration.md'
+  - Modeling:
+    - Core Concepts: 'modeling/core_concepts.md'
+    - Key Components: 'modeling/key_components.md'
+    - Simplex Circuits: 'modeling/simplex_circuits.md'
+    - Duplex Circuits: 'modeling/duplex_circuits.md'
+    - PON Circuits: 'modeling/pon_circuits.md'
+    - WDM Circuits: 'modeling/wdm_circuits.md'
+  - Testing: ''
+  - Reporting: ''
